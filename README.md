@@ -1,6 +1,6 @@
 # Python + MySQL Training Task
 
-This repository contains two console-based applications developed by using Python and SQL:
+This repository contains two console-based applications developed by using Python and MySQL:
 
 ## 📌 Applications
 
