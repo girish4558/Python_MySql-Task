@@ -1,0 +1,17 @@
+CREATE DATABASE contact;
+
+USE contact;
+
+CREATE TABLE Contact (
+	Person_Id INT AUTO_INCREMENT PRIMARY KEY,
+    Person_Name VARCHAR (50) NOT NULL,
+    Mobile_Number BIGINT NOT NULL, CHECK (Mobile_Number REGEXP '^[0-9]{10}$'),
+    Email_Id VARCHAR (50) NOT NULL, CHECK (Email_Id LIKE "%@%")
+);
+
+CREATE TABLE Notes(
+	Note_id INT AUTO_INCREMENT PRIMARY KEY,
+    Title VARCHAR(50) NOT NULL,
+    Content TEXT NOT NULL,
+    Create_Date DATETIME DEFAULT CURRENT_TIMESTAMP
+);
