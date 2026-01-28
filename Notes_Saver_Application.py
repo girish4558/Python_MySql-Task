@@ -11,13 +11,13 @@ mysql_Connection = mysql.connector.connect(
 # Creating Cusor Object
 cursor = mysql_Connection.cursor()
 
-# Insert Note
+# Insert Note into database
 def insert_Note(title,Content):
     cursor.execute("INSERT INTO notes (Title, Content) VALUES (%s,%s)",(title,Content))
     mysql_Connection.commit()
     print("Note Added Successfully...!")
 
-# Display
+# Display All the notes from database
 def Display():
     print("=================== Notes List ===================")
     cursor.execute("SELECT * FROM notes")
@@ -39,7 +39,7 @@ def Display():
         print(f"Created On  : {created_date}")
         print("-" * 40)
 
-# Searching Notes
+# Searching Notes from database by using "Title"
 def search(note_title):
     cursor.execute("SELECT * FROM notes WHERE LOWER(Title) = LOWER(%s)",(note_title,))
     titles = cursor.fetchall()
@@ -60,17 +60,18 @@ def search(note_title):
         print(f"Created On  : {created_date}")
         print("-" * 40)
 
-# Updating The Note
+# Updating The Note from the database
 def update(title, content, id):
     cursor.execute("UPDATE notes set Title = %s, Content = %s WHERE Note_id = %s", (title, content, id))
     mysql_Connection.commit()
     print("You Updated Note Successfully..!")
 
-# Deleting The Note
+# Deleting The Note from the database
 def delete(id):
     cursor.execute("DELETE FROM notes WHERE Note_id = %s",(id,))
     mysql_Connection.commit()
     print("You Deleted Note Successfully..!")
+
 # Excecution of Notes Saver Application
 while True:
     print(" 1.Insert a new Note\n 2.Display all the Notes\n 3.Search Notes\n 4.Update Note\n 5.Delete Note\n 6.Exit")
@@ -78,6 +79,7 @@ while True:
 
     match Choise:
         case 1:
+            # Promt for taking user inputs
             title = input("Enter Note Title: ")
             Content = input("Enter Content: ")
             insert_Note(title, Content)
@@ -100,6 +102,7 @@ while True:
             delete(id)
 
         case 6:
+            # Closing the connections
             cursor.close()
             mysql_Connection.close()
             print("You are Exited")

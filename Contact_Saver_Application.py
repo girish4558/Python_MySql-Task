@@ -11,15 +11,17 @@ mysql_Connection = mysql.connector.connect(
 # Creating Cusor Object
 cursor = mysql_Connection.cursor()
 
+# Validating Mobile Number
 def valid_mobile(mobile):
     return str(mobile).isdigit() and len(str(mobile)) == 10
 
-# Insert Contact
+# Insert new Contact into database
 def insert(name, Mobile_Number, Email_id):
         if not valid_mobile(Mobile_Number):
             print("Invalid mobile number. Must be 10 digits.")
             return
         
+        # Handle DataBase connection errors
         try:
             cursor.execute("INSERT INTO Contact (Person_Name,Mobile_Number,Email_Id) VALUES (%s,%s,%s)",(name,Mobile_Number, Email_id))
             mysql_Connection.commit()
@@ -27,7 +29,7 @@ def insert(name, Mobile_Number, Email_id):
         except mysql.connector.errors.DatabaseError as err:
             print("Invalid Data. Try Again")
 
-# Display Contacts
+# Display All the Contacts from the database
 def display():
     print("============Contact List============")
     cursor.execute("SELECT * FROM Contact")
@@ -45,7 +47,7 @@ def display():
         print(f"Email       : {Email}")
         print("-" * 40)
 
-# Search By name  
+# Search Contact By using "Name"
 def search_name(name):
     cursor.execute("SELECT * FROM Contact WHERE Person_Name LIKE %s", ("%" + name + "%",))
     contacts = cursor.fetchall()
@@ -62,7 +64,7 @@ def search_name(name):
         print(f"Email       : {Email}")
         print("-" * 40)
 
-# Search By Mobile
+# Search Contact By using "Mobile"
 def search_mobile(mobile):
     if not valid_mobile(mobile):
         print("Invalid mobile number. Must be 10 digits.")
@@ -81,12 +83,12 @@ def search_mobile(mobile):
         print(f"Email       : {Email}")
         print("-" * 40)
 
-# Update Name
+# Update Name from the database
 def update(id,name):
     cursor.execute("UPDATE Contact set Person_Name = %s WHERE Person_Id = %s",(name,id ))
     mysql_Connection.commit()
 
-# Delete Record
+# Delete Record from the database
 def delete(id):
     cursor.execute("DELETE FROM Contact WHERE Person_Id = %s",(id,))
     mysql_Connection.commit()
@@ -98,6 +100,7 @@ while True:
 
     match User_Choise:
         case 1:
+            # Prompt used for contact details
             name = input("Enter User_Name: ")
             Mobile_Number = int(input("Enter Mobile Number: "))
             Email_id = input("Enter Email Id: ")
@@ -129,6 +132,7 @@ while True:
             print("You deleted the Contact successfully..!")
 
         case 6:
+            # Close the connections
             cursor.close()
             mysql_Connection.close()
             print("You are Exited")
