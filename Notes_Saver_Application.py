@@ -33,10 +33,10 @@ def Display():
         content = row[2]
         created_date = row[3].strftime("%d-%m-%Y %I:%M %p")  # clear date + time
 
-        print(f"ID: {note_id}")
-        print(f"Title: {title}")
-        print(f"Content: {content}")
-        print(f"Created On: {created_date}")
+        print(f"ID          : {note_id}")
+        print(f"Title       : {title}")
+        print(f"Content     : {content}")
+        print(f"Created On  : {created_date}")
         print("-" * 40)
 
 # Searching Notes
@@ -54,10 +54,10 @@ def search(note_title):
         content = row[2]
         created_date = row[3].strftime("%d-%m-%Y %I:%M %p")  # clear date + time
 
-        print(f"ID: {note_id}")
-        print(f"Title: {title}")
-        print(f"Content: {content}")
-        print(f"Created On: {created_date}")
+        print(f"ID          : {note_id}")
+        print(f"Title       : {title}")
+        print(f"Content     : {content}")
+        print(f"Created On  : {created_date}")
         print("-" * 40)
 
 # Updating The Note
