@@ -28,6 +28,7 @@ def insert(name, Mobile_Number, Email_id):
             print("Contact is Saved Successfully..!")
         except mysql.connector.errors.DatabaseError as err:
             print("Invalid Data. Try Again")
+            print()
 
 # Display All the Contacts from the database
 def display():
@@ -69,6 +70,7 @@ def search_mobile(mobile):
     if not valid_mobile(mobile):
         print("Invalid mobile number. Must be 10 digits.")
         return
+    cursor.execute("SELECT * FROM Contact WHERE Mobile_Number = %s", (mobile,))
     contacts = cursor.fetchall()
     if not contacts:
         print("No Contacts Found")
